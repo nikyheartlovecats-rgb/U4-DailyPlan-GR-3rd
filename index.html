@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colegio Montano - Interactive Whiteboard | Unit 4 Grammar</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F2F5E9;
+            color: #1e293b;
+        }
+        /* Custom scrollbar for immersive feel */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #e2e8f0;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #88B5C7;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #1269A8;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased">
+
+    <!-- TOP HEADER BAR -->
+    <header class="bg-[#1269A8] text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-4">
+            <!-- Logo & Institution Name -->
+            <div class="flex items-center space-x-3">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyEop0yf6lZ7Jk9MILZxF1rBj4Oqs5esyhIQ&s" alt="Colegio Montano Logo" class="h-12 w-12 rounded-full bg-white p-1 object-cover shadow">
+                <div>
+                    <h1 class="text-xl font-extrabold tracking-tight flex items-center gap-2">
+                        Colegio Montano <span class="text-xs bg-[#F7D615] text-slate-900 px-2 py-0.5 rounded-full font-bold">Leader in Me</span>
+                    </h1>
+                    <p class="text-xs text-[#88B5C7] font-medium">Digital Interactive Whiteboard | 3rd Grade Grammar</p>
+                </div>
+            </div>
+
+            <!-- Header Quick Info & Fullscreen Button -->
+            <div class="flex items-center space-x-3 flex-wrap">
+                <div class="hidden md:flex items-center space-x-2 bg-blue-900/50 px-3 py-1.5 rounded-lg text-xs font-medium border border-blue-400/30">
+                    <span>👩‍🏫 Teacher: <strong>Nicole De León</strong></span>
+                    <span>•</span>
+                    <span>📅 <strong>Aug 12 - Oct 12</strong></span>
+                </div>
+                <button onclick="toggleFullScreen()" class="bg-[#F7D615] hover:bg-yellow-400 text-slate-900 font-bold px-4 py-2 rounded-xl text-sm shadow transition transform active:scale-95 flex items-center gap-2 cursor-pointer">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+                    </svg>
+                    Fullscreen Mode
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- NAVIGATION CONTROLS: WEEK & LESSON SELECTOR -->
+    <nav class="bg-[#54887D] text-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4 py-3">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
+                <div class="flex items-center space-x-2 overflow-x-auto pb-2 md:pb-0">
+                    <span class="text-xs font-bold uppercase tracking-wider bg-[#A6B046] px-2.5 py-1 rounded-lg text-white">Select Week:</span>
+                    <button onclick="switchWeek(1)" id="btn-week-1" class="week-tab px-3 py-1.5 rounded-lg text-xs font-bold transition bg-white text-[#54887D] shadow">W1 (Aug 12)</button>
+                    <button onclick="switchWeek(2)" id="btn-week-2" class="week-tab px-3 py-1.5 rounded-lg text-xs font-bold transition bg-[#54887D]/70 hover:bg-[#54887D] text-white">W2 (Aug 19)</button>
+                    <button onclick="switchWeek(3)" id="btn-week-3" class="week-tab px-3 py-1.5 rounded-lg text-xs font-bold transition bg-[#54887D]/70 hover:bg-[#54887D] text-white">W3 (Aug 26)</button>
+                    <button onclick="switchWeek(4)" id="btn-week-4" class="week-tab px-3 py-1.5 rounded-lg text-xs font-bold transition bg-[#54887D]/70 hover:bg-[#54887D] text-white">W4 (Sep 2)</button>
+                    <button onclick="switchWeek(5)" id="btn-week-5" class="week-tab px-3 py-1.5 rounded-lg text-xs font-bold transition bg-[#54887D]/70 hover:bg-[#54887D] text-white">W5 (Sep 9)</button>
+                    <button onclick="switchWeek(6)" id="btn-week-6" class="week-tab px-3 py-1.5 rounded-lg text-xs font-bold transition bg-[#54887D]/70 hover:bg-[#54887D] text-white">W6 (Sep 16)</button>
+                    <button onclick="switchWeek(7)" id="btn-week-7" class="week-tab px-3 py-1.5 rounded-lg text-xs font-bold transition bg-[#54887D]/70 hover:bg-[#54887D] text-white">W7 (Sep 23)</button>
+                    <button onclick="switchWeek(8)" id="btn-week-8" class="week-tab px-3 py-1.5 rounded-lg text-xs font-bold transition bg-[#54887D]/70 hover:bg-[#54887D] text-white">W8 (Sep 30+)</button>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <span class="text-xs font-bold uppercase tracking-wider bg-[#A6B046] px-2.5 py-1 rounded-lg text-white">Session:</span>
+                    <button onclick="switchLesson(1)" id="btn-lesson-1" class="lesson-tab px-3 py-1.5 rounded-lg text-xs font-bold transition bg-[#F7D615] text-slate-900 shadow">Class 1</button>
+                    <button onclick="switchLesson(2)" id="btn-lesson-2" class="lesson-tab px-3 py-1.5 rounded-lg text-xs font-bold transition bg-emerald-800 text-white">Class 2</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 py-6 flex flex-col gap-6">
+
+        <!-- HEADER CONTEXT CARD -->
+        <section id="context-card" class="bg-white rounded-2xl shadow-md p-5 border-l-8 border-[#1269A8]">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div>
+                    <div class="flex items-center gap-2 mb-1">
+                        <span id="badge-unit" class="bg-[#88B5C7] text-slate-900 text-xs font-bold px-2.5 py-0.5 rounded-full">Unit 4</span>
+                        <span id="badge-dates" class="text-xs text-slate-500 font-semibold">📅 August 12 - August 16</span>
+                        <span class="bg-[#A6B046] text-white text-xs font-bold px-2.5 py-0.5 rounded-full">Habit: Begin with the End in Mind</span>
+                    </div>
+                    <h2 id="lesson-title-header" class="text-2xl font-extrabold text-slate-800">Simple Past: Regular Verbs (Affirmative Sentences)</h2>
+                    <p id="lesson-subtitle-desc" class="text-sm text-slate-600 mt-1">Our World 3 (NatGeo) Student Book pp. 136-137 | Workbook pp. 95-96</p>
+                </div>
+                <div class="bg-[#F2F5E9] p-3 rounded-xl border border-slate-200 text-xs text-slate-700 max-w-xs">
+                    <p class="font-bold text-[#1269A8] mb-1">🎯 Learning Objective (CNB Guatemala):</p>
+                    <span id="objective-text">Students will accurately identify and construct affirmative sentences using regular past tense verbs (-ed/-d) in oral and written contexts.</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4 MOMENTS TABS (PIZARRA DIGITAL INTERACTIVE TABS) -->
+        <section class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden flex flex-col flex-1">
+            <!-- Tab Navigation Header -->
+            <div class="grid grid-cols-2 md:grid-cols-4 bg-slate-100 border-b border-slate-200">
+                <button onclick="switchTab('intro')" id="tab-intro" class="p-4 text-center font-bold text-sm transition border-b-4 border-[#1269A8] bg-white text-[#1269A8] flex flex-col items-center gap-1 cursor-pointer">
+                    <span class="text-lg">⚡</span>
+                    <span>I) Intro & Vocab (~5 min)</span>
+                </button>
+                <button onclick="switchTab('individual')" id="tab-individual" class="p-4 text-center font-bold text-sm transition border-b-4 border-transparent text-slate-600 hover:text-[#1269A8] hover:bg-slate-50 flex flex-col items-center gap-1 cursor-pointer">
+                    <span class="text-lg">📝</span>
+                    <span>II) Individual Work (20 min)</span>
+                </button>
+                <button onclick="switchTab('cooperative')" id="tab-cooperative" class="p-4 text-center font-bold text-sm transition border-b-4 border-transparent text-slate-600 hover:text-[#1269A8] hover:bg-slate-50 flex flex-col items-center gap-1 cursor-pointer">
+                    <span class="text-lg">🤝</span>
+                    <span>III) Teamwork (30 min)</span>
+                </button>
+                <button onclick="switchTab('plenary')" id="tab-plenary" class="p-4 text-center font-bold text-sm transition border-b-4 border-transparent text-slate-600 hover:text-[#1269A8] hover:bg-slate-50 flex flex-col items-center gap-1 cursor-pointer">
+                    <span class="text-lg">🌟</span>
+                    <span>IV) Plenary & Closing (15 min)</span>
+                </button>
+            </div>
+
+            <!-- Tab Content Body -->
+            <div class="p-6 flex-1 flex flex-col justify-between bg-slate-50/50">
+                
+                <!-- PESTAÑA I: INTRODUCCIÓN MOTIVANTE & VOCABULARY REVIEW -->
+                <div id="content-intro" class="tab-content space-y-6">
+                    <div class="bg-amber-50 border-l-4 border-[#F7D615] p-4 rounded-xl shadow-sm">
+                        <h3 class="font-bold text-slate-900 text-base flex items-center gap-2">
+                            <span>🧠</span> Brain Activation & Vocabulary Review (Leader in Me: Habit 2 - Begin with the End in Mind)
+                        </h3>
+                        <p class="text-sm text-slate-700 mt-1" id="intro-desc">Let's review Unit 8 Vocabulary 1 & 2! Look at the pictures on the whiteboard and practice pronunciation with your partner.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                            <h4 class="font-bold text-[#1269A8] text-sm mb-2">📸 Vocabulary Quick Flashcards (Our World 3)</h4>
+                            <div class="grid grid-cols-2 gap-2 text-xs" id="vocab-items-container">
+                                <div class="bg-[#F2F5E9] p-2 rounded-lg text-center font-semibold text-slate-800 border border-slate-200">🎉 a costume / celebrate</div>
+                                <div class="bg-[#F2F5E9] p-2 rounded-lg text-center font-semibold text-slate-800 border border-slate-200">🍲 a feast / remember</div>
+                                <div class="bg-[#F2F5E9] p-2 rounded-lg text-center font-semibold text-slate-800 border border-slate-200">🎭 a mask / dance</div>
+                                <div class="bg-[#F2F5E9] p-2 rounded-lg text-center font-semibold text-slate-800 border border-slate-200">🏮 a lantern / dress up</div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                            <div>
+                                <h4 class="font-bold text-[#54887D] text-sm mb-2">🎮 Interactive Warm-Up Challenge</h4>
+                                <p class="text-xs text-slate-600 mb-3" id="warmup-prompt">Teacher says a vocabulary word; students point to the correct book page or make a quick gesture!</p>
+                            </div>
+                            <div class="bg-emerald-50 p-3 rounded-lg border border-emerald-200 text-xs text-emerald-800">
+                                <strong>Montano Habit Alignment:</strong> <em>"Ser proactivo"</em> — Actively participating without waiting to be asked.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PESTAÑA II: TRABAJO INDIVIDUAL -->
+                <div id="content-individual" class="tab-content hidden space-y-6">
+                    <div class="bg-blue-50 border-l-4 border-[#1269A8] p-4 rounded-xl shadow-sm">
+                        <h3 class="font-bold text-slate-900 text-base flex items-center gap-2">
+                            <span>📝</span> Individual Practice & Guided Workbook Tasks (20 Minutes)
+                        </h3>
+                        <p class="text-sm text-slate-700 mt-1" id="individual-desc">Complete exercises independently in your Student Book and Workbook. Avoid copy-pasting; focus on personal understanding.</p>
+                    </div>
+
+                    <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-4">
+                        <h4 class="font-bold text-slate-800 text-sm" id="individual-task-title">Student Book & Workbook Exercises</h4>
+                        <div class="text-sm text-slate-700 bg-slate-50 p-4 rounded-xl border border-slate-200" id="individual-task-instructions">
+                            Open Student Book page 136. Read sentences about past events and rewrite them following the grammar rule. Then complete Workbook page 95.
+                        </div>
+
+                        <!-- Accordion / Dropdown Button for Hidden Solution / Self-Correction -->
+                        <div class="pt-2">
+                            <button onclick="toggleSolution()" class="w-full bg-[#1269A8] hover:bg-blue-800 text-white font-bold py-2.5 px-4 rounded-xl text-xs flex items-center justify-between transition cursor-pointer shadow">
+                                <span class="flex items-center gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
+                                    Click to Reveal Answer Key / Guidance (Self-Evaluation)
+                                </span>
+                                <span id="solution-arrow">▼</span>
+                            </button>
+                            <div id="solution-box" class="hidden mt-2 p-4 bg-emerald-50 border border-emerald-300 rounded-xl text-xs text-emerald-900 space-y-2">
+                                <p class="font-bold text-emerald-800">✅ Answer Key & Explanation:</p>
+                                <ul class="list-disc list-inside space-y-1" id="solution-list">
+                                    <li>1. walk ➔ walked (add -ed)</li>
+                                    <li>2. dance ➔ danced (add -d because it ends in e)</li>
+                                    <li>3. play ➔ played (consonant + y rule doesn't apply to vowel + y)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PESTAÑA III: TRABAJO COOPERATIVO / EN EQUIPO -->
+                <div id="content-cooperative" class="tab-content hidden space-y-6">
+                    <div class="bg-emerald-50 border-l-4 border-[#54887D] p-4 rounded-xl shadow-sm">
+                        <h3 class="font-bold text-slate-900 text-base flex items-center gap-2">
+                            <span>🤝</span> Cooperative Teamwork & Role Assignment (30 Minutes)
+                        </h3>
+                        <p class="text-sm text-slate-700 mt-1">Work in pairs or small teams. Every student has a specific role to create a concrete product (mini poster, sentence matrix, or dialogue chart).</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                            <h4 class="font-bold text-[#1269A8] text-xs uppercase mb-2">👥 Team Roles</h4>
+                            <ul class="text-xs space-y-2 text-slate-700">
+                                <li>• <strong>Speaker:</strong> Presents findings in plenary.</li>
+                                <li>• <strong>Writer:</strong> Records team sentences on paper.</li>
+                                <li>• <strong>Timekeeper:</strong> Keeps team on track (Habit 3: Put First Things First).</li>
+                            </ul>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm md:col-span-2">
+                            <h4 class="font-bold text-[#54887D] text-xs uppercase mb-2">📋 Collaborative Task</h4>
+                            <p class="text-xs text-slate-700 mb-3" id="coop-task-desc">Create 3 past tense sentences about what you did last weekend using today's grammar rule. Practice presenting them together.</p>
+                            <div class="bg-[#F2F5E9] p-3 rounded-lg border border-slate-200 text-xs text-slate-800">
+                                <strong>Synergize (Habit 6):</strong> Combine everyone's ideas to make the most creative sentences!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PESTAÑA IV: PLENARIA Y CIERRE -->
+                <div id="content-plenary" class="tab-content hidden space-y-6">
+                    <div class="bg-purple-50 border-l-4 border-purple-500 p-4 rounded-xl shadow-sm">
+                        <h3 class="font-bold text-slate-900 text-base flex items-center gap-2">
+                            <span>🌟</span> Plenary, Interactive Game & Home Research Challenge (15 Minutes)
+                        </h3>
+                        <p class="text-sm text-slate-700 mt-1">Mini-presentations by teams, checking understanding, and setting the home investigation task.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                            <h4 class="font-bold text-[#1269A8] text-xs uppercase mb-2">🎮 Interactive Digital Game / Trivia</h4>
+                            <p class="text-xs text-slate-600 mb-3">Play <strong>Grammar Passapalabra</strong> or NatGeo Unit Trivia on the big screen! Teams answer rapid-fire questions.</p>
+                            <div class="bg-blue-50 p-3 rounded-lg text-xs text-blue-900 border border-blue-200">
+                                <span class="font-bold">Sample Question:</span> What is the past tense of "listen"? 👉 <em>Listened!</em>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm border-l-4 border-[#A6B046]">
+                            <h4 class="font-bold text-[#A6B046] text-xs uppercase mb-2">🏠 Home Research Challenge</h4>
+                            <p class="text-xs text-slate-700 mb-2" id="home-challenge-text">Ask a family member: <em>"What did you do last weekend?"</em> Write down 2 sentences in your notebook using regular past tense verbs and share them tomorrow.</p>
+                            <div class="text-[11px] text-slate-500 italic">
+                                Habit 7: Sharpen the Saw — Connecting classroom learning with family life!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- EVALUATION RUBRIC / CHECKLIST FOOTER -->
+            <div class="bg-slate-200 p-4 border-t border-slate-300">
+                <details class="group">
+                    <summary class="font-bold text-xs text-slate-700 cursor-pointer flex items-center justify-between">
+                        <span>📊 Plenary Evaluation Checklist (Interactive Rubric for Teacher)</span>
+                        <span class="group-open:rotate-180 transition">▼</span>
+                    </summary>
+                    <div class="mt-3 overflow-x-auto">
+                        <table class="w-full text-xs bg-white rounded-lg overflow-hidden shadow-sm">
+                            <thead class="bg-[#1269A8] text-white">
+                                <tr>
+                                    <th class="p-2 text-left">Evaluation Criteria</th>
+                                    <th class="p-2 text-center">Excellent (3)</th>
+                                    <th class="p-2 text-center">Satisfactory (2)</th>
+                                    <th class="p-2 text-center">In Progress (1)</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100 text-slate-700">
+                                <tr>
+                                    <td class="p-2 font-medium">1. Topic Mastery & Explanation Clarity</td>
+                                    <td class="p-2 text-center"><input type="radio" name="ev1" checked></td>
+                                    <td class="p-2 text-center"><input type="radio" name="ev1"></td>
+                                    <td class="p-2 text-center"><input type="radio" name="ev1"></td>
+                                </tr>
+                                <tr>
+                                    <td class="p-2 font-medium">2. Logical Procedure / Grammar Accuracy</td>
+                                    <td class="p-2 text-center"><input type="radio" name="ev2" checked></td>
+                                    <td class="p-2 text-center"><input type="radio" name="ev2"></td>
+                                    <td class="p-2 text-center"><input type="radio" name="ev2"></td>
+                                </tr>
+                                <tr>
+                                    <td class="p-2 font-medium">3. Collaborative Work & Equity (Leader in Me)</td>
+                                    <td class="p-2 text-center"><input type="radio" name="ev3" checked></td>
+                                    <td class="p-2 text-center"><input type="radio" name="ev3"></td>
+                                    <td class="p-2 text-center"><input type="radio" name="ev3"></td>
+                                </tr>
+                                <tr>
+                                    <td class="p-2 font-medium">4. Plenary Response & Engagement</td>
+                                    <td class="p-2 text-center"><input type="radio" name="ev4" checked></td>
+                                    <td class="p-2 text-center"><input type="radio" name="ev4"></td>
+                                    <td class="p-2 text-center"><input type="radio" name="ev4"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </details>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-800 text-white text-center py-3 text-xs mt-6">
+        <p>Colegio Montano © 2026 | Pedagogical Interactive Assistant | Currículo Nacional Base (CNB Guatemala) & Leader in Me</p>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC FOR DYNAMIC WEEKS & LESSONS -->
+    <script>
+        // Lesson & Week Dataset
+        const curriculumData = {
+            1: {
+                dates: "August 12 - August 22 (Weeks 1 & 2)",
+                title: "Simple Past: Regular Verbs",
+                subtitle: "Our World 3 (NatGeo) Student Book pp. 136-137 | Workbook pp. 95-96",
+                habit: "Habit 2: Begin with the End in Mind",
+                objective: "Students will accurately construct and identify affirmative sentences using regular past tense verbs (-ed/-d).",
+                class1: {
+                    title: "Simple Past: Regular Verbs (Affirmative)",
+                    sub: "SB pp. 136-137 | WB pp. 95-96",
+                    task: "Open Student Book page 136. Read about past events and rewrite them following the regular verb rule. Then complete Workbook page 95.",
+                    solution: ["1. walk ➔ walked (add -ed)", "2. dance ➔ danced (add -d)", "3. play ➔ played"],
+                    home: "Ask a family member: 'What did you do last weekend?' Write 2 regular past tense sentences in your notebook."
+                },
+                class2: {
+                    title: "Simple Past: Regular Verbs (Practice & Spelling Rules)",
+                    sub: "SB p. 137 | WB p. 96",
+                    task: "Review spelling rules for regular past verbs (consonant + y ➔ ied, double consonant). Complete workbook page 96.",
+                    solution: ["1. try ➔ tried (change y to i, add -ed)", "2. stop ➔ stopped (double consonant)", "3. listen ➔ listened"],
+                    home: "Find 3 action verbs at home, write their past tense form, and illustrate them in your notebook."
+                }
+            },
+            2: {
+                dates: "August 26 - September 5 (Weeks 3 & 4)",
+                title: "Simple Past: Irregular Verbs",
+                subtitle: "Our World 3 (NatGeo) Student Book p. 139 | Workbook pp. 98-99",
+                habit: "Habit 3: Put First Things First",
+                objective: "Students will correctly use common irregular past tense verbs (go-went, see-saw, eat-ate) in sentences.",
+                class1: {
+                    title: "Simple Past: Irregular Verbs (Introduction)",
+                    sub: "SB p. 139 | WB p. 98",
+                    task: "Identify irregular past forms of high-frequency verbs. Complete matching exercises on Student Book page 139.",
+                    solution: ["1. go ➔ went", "2. see ➔ saw", "3. eat ➔ ate", "4. have ➔ had"],
+                    home: "Write 3 sentences using irregular past verbs (went, saw, ate) based on yesterday's dinner."
+                },
+                class2: {
+                    title: "Simple Past: Irregular Verbs (Workbook & Sentences)",
+                    sub: "SB p. 139 | WB p. 99",
+                    task: "Complete Workbook page 99 sentence completion and mini-story writing using irregular verbs.",
+                    solution: ["1. I went to the park.", "2. We saw a big dog.", "3. She ate an apple."],
+                    home: "Interview a sibling or parent about where they went yesterday using 'Did you go...?'"
+                }
+            },
+            3: {
+                dates: "September 9 - September 19 (Weeks 5 & 6)",
+                title: "Simple Past: Wh-Questions and Negative",
+                subtitle: "Our World 3 (NatGeo) Student Book pp. 152-153 | Workbook pp. 107-108",
+                habit: "Habit 4: Think Win-Win",
+                objective: "Students will formulate negative sentences (didn't + verb) and Wh- questions in the simple past.",
+                class1: {
+                    title: "Simple Past: Negative Sentences",
+                    sub: "SB pp. 152 | WB p. 107",
+                    task: "Learn how to use 'didn't' + base form of the verb. Complete Student Book page 152 activities.",
+                    solution: ["1. I played ➔ I didn't play", "2. She went ➔ She didn't go", "3. They watched ➔ They didn't watch"],
+                    home: "Write 3 things you didn't do yesterday (e.g., 'I didn't watch TV')."
+                },
+                class2: {
+                    title: "Simple Past: Wh- Questions",
+                    sub: "SB p. 153 | WB p. 108",
+                    task: "Practice asking questions with 'What did you...?' and answering them. Complete Workbook page 108.",
+                    solution: ["1. What did you do? ➔ I played soccer.", "2. Where did you go? ➔ I went to the zoo."],
+                    home: "Ask 2 friends what they ate for breakfast using 'What did you eat...?' and write their answers."
+                }
+            },
+            4: {
+                dates: "September 23 - October 3 (Weeks 7 & 8)",
+                title: "Go + Verb + -ing & Unit Review",
+                subtitle: "Our World 3 (NatGeo) Student Book pp. 155 | Workbook pp. 110-111, 116-117",
+                habit: "Habit 7: Sharpen the Saw",
+                objective: "Students will master 'go + verb + -ing' structures and successfully complete Unit 4 review tasks.",
+                class1: {
+                    title: "Go + Verb + -ing (Activities & Hobbies)",
+                    sub: "SB p. 155 | WB pp. 110-111",
+                    task: "Explore activity phrases (go fishing, go hiking, go swimming). Complete workbook pages 110-111.",
+                    solution: ["1. go + fishing = go fishing", "2. go + hiking = go hiking", "3. go + ice skating = go ice skating"],
+                    home: "List 3 outdoor activities you love to do with your family using 'go + verb + -ing'."
+                },
+                class2: {
+                    title: "Unit 4 Comprehensive Review & Unit 7-9 Check",
+                    sub: "WB pp. 116-117",
+                    task: "Complete review exercises on Workbook pages 116-117. Peer check and celebrate learning achievements.",
+                    solution: ["Review check completed successfully. All grammar structures validated."],
+                    home: "Prepare a short 1-minute family presentation sharing your favorite grammar topic learned in Unit 4!"
+                }
+            }
+        };
+
+        let currentWeek = 1;
+        let currentLesson = 1;
+
+        function switchWeek(weekNum) {
+            currentWeek = weekNum;
+            // Update button styles
+            for (let i = 1; i <= 8; i++) {
+                const btn = document.getElementById(`btn-week-${i}`);
+                if (i === weekNum) {
+                    btn.className = "week-tab px-3 py-1.5 rounded-lg text-xs font-bold transition bg-white text-[#54887D] shadow";
+                } else {
+                    btn.className = "week-tab px-3 py-1.5 rounded-lg text-xs font-bold transition bg-[#54887D]/70 hover:bg-[#54887D] text-white";
+                }
+            }
+            updateContent();
+        }
+
+        function switchLesson(lessonNum) {
+            currentLesson = lessonNum;
+            const btn1 = document.getElementById("btn-lesson-1");
+            const btn2 = document.getElementById("btn-lesson-2");
+            if (lessonNum === 1) {
+                btn1.className = "lesson-tab px-3 py-1.5 rounded-lg text-xs font-bold transition bg-[#F7D615] text-slate-900 shadow";
+                btn2.className = "lesson-tab px-3 py-1.5 rounded-lg text-xs font-bold transition bg-emerald-800 text-white";
+            } else {
+                btn1.className = "lesson-tab px-3 py-1.5 rounded-lg text-xs font-bold transition bg-emerald-800 text-white";
+                btn2.className = "lesson-tab px-3 py-1.5 rounded-lg text-xs font-bold transition bg-[#F7D615] text-slate-900 shadow";
+            }
+            updateContent();
+        }
+
+        function updateContent() {
+            // Map 8 weeks into 4 curriculum blocks (each block has 2 weeks / 4 classes)
+            const blockIndex = Math.ceil(currentWeek / 2);
+            const data = curriculumData[blockIndex];
+            const lessonData = currentLesson === 1 ? data.class1 : data.class2;
+
+            // Update DOM headers
+            document.getElementById("badge-unit").innerText = `Unit 4 (Week ${currentWeek})`;
+            document.getElementById("badge-dates").innerText = `📅 ${data.dates}`;
+            document.getElementById("lesson-title-header").innerText = lessonData.title;
+            document.getElementById("lesson-subtitle-desc").innerText = lessonData.sub + " | Our World 3 NatGeo";
+            document.getElementById("objective-text").innerText = data.objective;
+
+            // Update Individual Task section
+            document.getElementById("individual-task-title").innerText = lessonData.title;
+            document.getElementById("individual-task-instructions").innerText = lessonData.task;
+
+            // Update Solutions list
+            const solList = document.getElementById("solution-list");
+            solList.innerHTML = "";
+            lessonData.solution.forEach(item => {
+                const li = document.createElement("li");
+                li.innerText = item;
+                solList.appendChild(li);
+            });
+
+            // Update Home challenge
+            document.getElementById("home-challenge-text").innerHTML = lessonData.home;
+
+            // Hide solution box on switch
+            document.getElementById("solution-box").classList.add("hidden");
+            document.getElementById("solution-arrow").innerText = "▼";
+        }
+
+        // Tab Switching Logic
+        function switchTab(tabId) {
+            const tabs = ['intro', 'individual', 'cooperative', 'plenary'];
+            tabs.forEach(t => {
+                const contentEl = document.getElementById(`content-${t}`);
+                const tabBtn = document.getElementById(`tab-${t}`);
+                if (t === tabId) {
+                    contentEl.classList.remove('hidden');
+                    tabBtn.className = "p-4 text-center font-bold text-sm transition border-b-4 border-[#1269A8] bg-white text-[#1269A8] flex flex-col items-center gap-1 cursor-pointer";
+                } else {
+                    contentEl.classList.add('hidden');
+                    tabBtn.className = "p-4 text-center font-bold text-sm transition border-b-4 border-transparent text-slate-600 hover:text-[#1269A8] hover:bg-slate-50 flex flex-col items-center gap-1 cursor-pointer";
+                }
+            });
+        }
+
+        // Accordion Solution Toggle
+        function toggleSolution() {
+            const box = document.getElementById("solution-box");
+            const arrow = document.getElementById("solution-arrow");
+            if (box.classList.contains("hidden")) {
+                box.classList.remove("hidden");
+                arrow.innerText = "▲";
+            } else {
+                box.classList.add("hidden");
+                arrow.innerText = "▼";
+            }
+        }
+
+        // Fullscreen Function
+        function toggleFullScreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => {
+                    alert(`Error attempting to enable fullscreen mode: ${err.message}`);
+                });
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+    </script>
+</body>
+</html>
